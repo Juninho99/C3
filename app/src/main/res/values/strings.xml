@@ -9,4 +9,10 @@
     <string name="obrisi">Obriši</string>
     <string name="prikazi_kod_liste">Prikaži kod liste</string>
     <string name="izmijeni">Izmijeni</string>
+    <string name="dodavanje_artikla">Dodavanje artikla</string>
+    <string name="potrebna_kolicina">Potrebna količina:</string>
+    <string name="dodatne_informacije">Dodatne informacije:</string>
+    <string name="napomene_za_kupovinu">Napomene za kupovinu</string>
+    <string name="potvrdi">Potvrdi</string>
+    <string name="nazad">Nazad</string>
 </resources>
