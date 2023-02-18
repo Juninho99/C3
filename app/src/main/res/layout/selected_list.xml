@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SelectedList">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/odaberite_listu"
+        android:text="Naziv liste..."
         android:textSize="30sp"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -23,70 +22,85 @@
 
     <ListView
         android:id="@+id/ListView"
-        android:layout_width="260dp"
-        android:layout_height="325dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="280dp"
+        android:layout_height="342dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.05"/>
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
-        android:id="@+id/izaberi"
+        android:id="@+id/dodaj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dodaj"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/cardview_shadow_end_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ListView"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <Button
+        android:id="@+id/obrisi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/obrisi"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/cardview_shadow_end_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ListView"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <Button
+        android:id="@+id/izmijeni"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/cardview_shadow_end_color"
-        android:text="@string/izaberi"
+        android:text="@string/izmijeni"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ListView"
+        app:layout_constraintVertical_bias="0.35" />
+
+    <Button
+        android:id="@+id/prikaziKodListe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/cardview_shadow_end_color"
+        android:text="@string/prikazi_kod_liste"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/izmijeni"
         app:layout_constraintVertical_bias="0.1" />
 
     <Button
-        android:id="@+id/kreirajNovuListu"
+        android:id="@+id/nazad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/cardview_shadow_end_color"
-        android:text="@string/kreiraj_novu_listu"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/izaberi"
-        app:layout_constraintVertical_bias="0.05" />
-
-    <Button
-        android:id="@+id/pridruziSeListi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/cardview_shadow_end_color"
-        android:onClick="GetTextFromSQL"
-        android:text="@string/pridruzi_se_listi"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kreirajNovuListu"
-        app:layout_constraintVertical_bias="0.05" />
-
-    <Button
-        android:id="@+id/odjava"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/cardview_shadow_end_color"
-        android:text="@string/odjava"
+        android:text="Nazad"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pridruziSeListi"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/prikaziKodListe"
+        app:layout_constraintVertical_bias="0.3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

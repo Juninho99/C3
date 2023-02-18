@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">C3</string>
+    <string name="odaberite_listu">Odaberite listu</string>
+    <string name="izaberi">Izaberi</string>
+    <string name="kreiraj_novu_listu">Kreiraj novu listu</string>
+    <string name="pridruzi_se_listi">Pridruži se listi</string>
+    <string name="odjava">Odjava</string>
+    <string name="dodaj">Dodaj</string>
+    <string name="obrisi">Obriši</string>
+    <string name="prikazi_kod_liste">Prikaži kod liste</string>
+    <string name="izmijeni">Izmijeni</string>
 </resources>
