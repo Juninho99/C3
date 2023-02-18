@@ -1,7 +1,11 @@
 package com.example.c3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Article {
 
+    public static List<Article> articleArrayList = new ArrayList<>();
     private int id;
     private String title;
     private String description;
