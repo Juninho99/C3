@@ -17,4 +17,5 @@
     <string name="nazad">Nazad</string>
     <string name="izmjena_artikla">Izmjena artikla</string>
     <string name="dodavanje_liste">Dodavanje liste</string>
+    <string name="ime_liste">Ime liste</string>
 </resources>

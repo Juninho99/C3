@@ -9,14 +9,14 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public Button button1;
+    public Button izaberi;
+    public Button kreirajNovuListu;
     RecyclerView recyclerView;
     ArrayList<String> editList;
     DBHelper DB;
@@ -27,12 +27,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button1 = findViewById(R.id.izaberi);
+        izaberi = findViewById(R.id.izaberi);
+        kreirajNovuListu = findViewById(R.id.kreirajNovuListu);
 
-        button1.setOnClickListener(new View.OnClickListener() {
+        izaberi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (MainActivity.this, SelectedList.class);
+                startActivity(intent);
+            }
+        });
+
+        kreirajNovuListu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (MainActivity.this, AddList.class);
                 startActivity(intent);
             }
         });
