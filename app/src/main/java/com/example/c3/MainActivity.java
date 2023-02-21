@@ -70,4 +70,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         intent.putExtra("listName", String.valueOf(editList.get(position)));
         startActivity(intent);
     }
+
+    @Override
+    public void onItemLongClick(int position) {
+        editList.remove(position);
+        adapter.notifyItemRemoved(position);
+    }
 }
