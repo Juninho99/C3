@@ -12,7 +12,6 @@ public class AddList extends AppCompatActivity {
 
     public Button nazad;
     public Button potvrdi;
-
     public EditText imeListe;
     DBHelper DB;
 

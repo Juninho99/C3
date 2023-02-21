@@ -32,6 +32,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    public boolean deleteList(String name) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        long result = DB.delete("List", "name=?", new String[]{name});
+        return result != -1;
+    }
+
     public Cursor getAllLists() {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("SELECT * FROM List", null);

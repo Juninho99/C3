@@ -73,7 +73,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     @Override
     public void onItemLongClick(int position) {
+        String ime = editList.get(position).toString();
+        Boolean deleteData = DB.deleteList(ime);
+
         editList.remove(position);
         adapter.notifyItemRemoved(position);
+
+
     }
 }
