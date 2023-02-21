@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewInterface{
 
     public Button izaberi;
     public Button kreirajNovuListu;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         DB = new DBHelper(this);
         editList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
-        adapter = new MyAdapter(this, editList);
+        adapter = new MyAdapter(this, editList, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displaydata();
@@ -61,5 +61,13 @@ public class MainActivity extends AppCompatActivity {
         {
             editList.add(cursor.getString(1));
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(MainActivity.this, SelectedList.class);
+
+        intent.putExtra("listName", String.valueOf(editList.get(position)));
+        startActivity(intent);
     }
 }
