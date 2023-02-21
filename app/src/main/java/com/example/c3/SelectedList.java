@@ -1,11 +1,25 @@
 package com.example.c3;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class SelectedList extends Activity {
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
+public class SelectedList extends Activity implements RecyclerViewInterface{
+
+    Button dodaj;
+    RecyclerView recyclerView;
+    ArrayList<String> editList;
+    DBHelper DB;
+    MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +30,45 @@ public class SelectedList extends Activity {
 
         TextView textView = findViewById(R.id.textView);
         textView.setText(imeListe);
+
+        dodaj = findViewById(R.id.dodaj);
+
+        dodaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (SelectedList.this, AddItem.class);
+                intent.putExtra("listName", imeListe);
+                startActivity(intent);
+            }
+        });
+
+        DB = new DBHelper(this);
+        editList = new ArrayList<>();
+        recyclerView = findViewById(R.id.recyclerView);
+        adapter = new MyAdapter(this, editList, this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        displaydata(imeListe);
     }
+
+    private void displaydata(String name) {
+        Cursor cursor = DB.getAllLists(name);
+        while(cursor.moveToNext())
+        {
+            editList.add(cursor.getString(1));
+        }
+    }
+
     public void dodajItem(View view) {
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
+
     }
 }

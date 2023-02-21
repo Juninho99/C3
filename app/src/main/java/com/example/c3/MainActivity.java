@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     }
 
     private void displaydata() {
-        Cursor cursor = DB.getAllLists();
+        Cursor cursor = DB.getAllLists("List");
         while(cursor.moveToNext())
         {
             editList.add(cursor.getString(1));
