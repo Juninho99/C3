@@ -56,19 +56,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displaydata() {
-        Cursor cursor = DB.getdata();
-        if(cursor.getCount()==0)
+        Cursor cursor = DB.getAllLists();
+        while(cursor.moveToNext())
         {
-            Toast.makeText(MainActivity.this, "No Entry Exists", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        else
-        {
-            while(cursor.moveToNext())
-            {
-                editList.add(cursor.getString(0));
-
-            }
+            editList.add(cursor.getString(1));
         }
     }
 }

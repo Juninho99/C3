@@ -40,7 +40,7 @@ public class AddList extends AppCompatActivity {
             public void onClick(View v) {
                 String ime = imeListe.getText().toString();
 
-                Boolean checkInsertData = DB.insertuserdata(ime);
+                Boolean checkInsertData = DB.insertList(ime);
 
                 if(checkInsertData) {
                     Intent intent = new Intent(AddList.this, MainActivity.class);

@@ -8,36 +8,33 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public DBHelper(Context context)
-    {
-        super(context, "Userdata.db", null, 1);
+    public DBHelper(Context context) {
+        super(context, "List.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
-        DB.execSQL("create Table Userdetails(name TEXT primary key)");
+        DB.execSQL("CREATE TABLE List(id INTEGER PRIMARY KEY, name TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase DB, int i, int ii) {
-        DB.execSQL("drop Table if exists Userdetails");
+        DB.execSQL("DROP TABLE IF EXISTS List");
     }
 
-    public Boolean insertuserdata(String name){
+    public boolean insertList(String name) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
 
-        long result = DB.insert("Userdetails", null, contentValues);
+        long result = DB.insert("List", null, contentValues);
 
         return result != -1;
-
     }
-    public Cursor getdata()
-    {
+
+    public Cursor getAllLists() {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor  = DB.rawQuery("Select * from Userdetails", null);
+        Cursor cursor = DB.rawQuery("SELECT * FROM List", null);
         return cursor;
     }
 }
-
