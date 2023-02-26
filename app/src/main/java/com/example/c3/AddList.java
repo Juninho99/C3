@@ -40,8 +40,8 @@ public class AddList extends AppCompatActivity {
                 String ime = imeListe.getText().toString();
 
                 Boolean checkInsertData = DB.insertList(ime);
-                String imeNoveTabele = "CREATE TABLE " + ime + "(id INTEGER PRIMARY KEY, name TEXT, quantity TEXT, description TEXT)";
-                DB.makeNewTable(imeNoveTabele);
+                //String imeNoveTabele = "CREATE TABLE " + ime + "(id INTEGER PRIMARY KEY, name TEXT, quantity TEXT, description TEXT)";
+                //DB.makeNewTable(imeNoveTabele);
 
                 if(checkInsertData) {
                     Intent intent = new Intent(AddList.this, MainActivity.class);

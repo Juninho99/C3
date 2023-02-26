@@ -20,13 +20,14 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
     ArrayList<String> editList;
     DBHelper DB;
     MyAdapter adapter;
-
+    Integer idOfList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selected_list);
 
         String imeListe = getIntent().getStringExtra("listName");
+        idOfList = getIntent().getIntExtra("idOfList", 0);
 
         TextView textView = findViewById(R.id.textView);
         textView.setText(imeListe);
@@ -37,6 +38,7 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (SelectedList.this, AddItem.class);
+                intent.putExtra("idOfList", idOfList);
                 intent.putExtra("listName", imeListe);
                 startActivity(intent);
             }
@@ -48,14 +50,15 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
         adapter = new MyAdapter(this, editList, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        displaydata(imeListe);
+        displaydata();
     }
 
-    private void displaydata(String name) {
-        Cursor cursor = DB.getAllLists(name);
+    private void displaydata() {
+        Cursor cursor = DB.getAllLists("Article");
         while(cursor.moveToNext())
         {
-            editList.add(cursor.getString(1));
+            if(cursor.getInt(4) == idOfList)
+                editList.add(cursor.getString(1));
         }
     }
 

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class AddItem extends AppCompatActivity {
 
@@ -17,7 +16,7 @@ public class AddItem extends AppCompatActivity {
     public EditText kolicina;
     public EditText dodatneInfo;
 
-    public String imeListe;
+    public Integer idOfList;
     DBHelper DB;
 
     @Override
@@ -25,7 +24,8 @@ public class AddItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_item);
 
-        imeListe = getIntent().getStringExtra("listName");
+        idOfList = getIntent().getIntExtra("idOfList", 0);
+        String imeListe = getIntent().getStringExtra("listName");
 
         nazad = findViewById(R.id.nazad);
         potvrdi = findViewById(R.id.potvrdi);
@@ -33,10 +33,14 @@ public class AddItem extends AppCompatActivity {
         kolicina = findViewById(R.id.kolicina);
         dodatneInfo = findViewById(R.id.dodatneInfo);
 
+        DB = new DBHelper(this);
+
         nazad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (AddItem.this, SelectedList.class);
+                intent.putExtra("listName", imeListe);
+                intent.putExtra("idOfList", idOfList);
                 startActivity(intent);
             }
         });
@@ -48,15 +52,17 @@ public class AddItem extends AppCompatActivity {
                 String kol = kolicina.getText().toString();
                 String info = dodatneInfo.getText().toString();
 
-                System.out.println("+++++++++++++++++++++ " + imeListe);
+                System.out.println("+++++++++++++++++++++ " + idOfList);
                 System.out.println("+++++++++++++++++++++ " + ime);
                 System.out.println("+++++++++++++++++++++ " + kol);
                 System.out.println("+++++++++++++++++++++ " + info);
 
-                Boolean checkInsertData = DB.insertItem(imeListe, ime, kol, info);
+                Boolean checkInsertData = DB.insertItem(ime, kol, info, idOfList);
 
                 if(checkInsertData) {
                     Intent intent = new Intent(AddItem.this, SelectedList.class);
+                    intent.putExtra("listName", imeListe);
+                    intent.putExtra("idOfList", idOfList);
                     startActivity(intent);
                 }
             }

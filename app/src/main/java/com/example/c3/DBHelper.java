@@ -9,17 +9,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
-        super(context, "List.db", null, 1);
+        super(context, "Article.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
         DB.execSQL("CREATE TABLE List(id INTEGER PRIMARY KEY, name TEXT)");
+        DB.execSQL("CREATE TABLE Article(id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, description TEXT, list_id INTEGER REFERENCES List(id))");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase DB, int i, int ii) {
         DB.execSQL("DROP TABLE IF EXISTS List");
+        DB.execSQL("DROP TABLE IF EXISTS Article");
     }
 
     public void makeNewTable(String name) {
@@ -27,14 +29,15 @@ public class DBHelper extends SQLiteOpenHelper {
         DB.execSQL(name);
     }
 
-    public boolean insertItem(String imeListe, String imeArtikla, String kolicina, String dodatneInfo) {
+    public boolean insertItem(String imeArtikla, String kolicina, String dodatneInfo, Integer idListe) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", imeArtikla);
         contentValues.put("quantity", kolicina);
         contentValues.put("description", dodatneInfo);
+        contentValues.put("list_id", idListe);
 
-        long result = DB.insert(imeListe, null, contentValues);
+        long result = DB.insert("Article", null, contentValues);
 
         return result != -1;
     }

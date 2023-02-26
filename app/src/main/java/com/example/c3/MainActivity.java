@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     public Button kreirajNovuListu;
     RecyclerView recyclerView;
     ArrayList<String> editList;
+    ArrayList<Integer> idList;
     DBHelper DB;
     MyAdapter adapter;
 
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         DB = new DBHelper(this);
         editList = new ArrayList<>();
+        idList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new MyAdapter(this, editList, this);
         recyclerView.setAdapter(adapter);
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         while(cursor.moveToNext())
         {
             editList.add(cursor.getString(1));
+            idList.add(cursor.getInt(0));
         }
     }
 
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         Intent intent = new Intent(MainActivity.this, SelectedList.class);
 
         intent.putExtra("listName", String.valueOf(editList.get(position)));
+        intent.putExtra("idOfList", idList.get(position));
         startActivity(intent);
     }
 
@@ -78,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         editList.remove(position);
         adapter.notifyItemRemoved(position);
-
 
     }
 }
