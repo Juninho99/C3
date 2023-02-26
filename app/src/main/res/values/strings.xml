@@ -18,4 +18,7 @@
     <string name="izmjena_artikla">Izmjena artikla</string>
     <string name="dodavanje_liste">Dodavanje liste</string>
     <string name="ime_liste">Ime liste</string>
+    <string name="prijava">Prijava</string>
+    <string name="korisnicko_ime">Korisničko ime</string>
+    <string name="sifra">Šifra</string>
 </resources>

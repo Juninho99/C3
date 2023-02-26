@@ -16,6 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase DB) {
         DB.execSQL("CREATE TABLE List(id INTEGER PRIMARY KEY, name TEXT)");
         DB.execSQL("CREATE TABLE Article(id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, description TEXT, list_id INTEGER REFERENCES List(id))");
+        DB.execSQL("CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, password TEXT)");
     }
 
     @Override
@@ -48,6 +49,17 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("name", name);
 
         long result = DB.insert("List", null, contentValues);
+
+        return result != -1;
+    }
+
+    public boolean insertUser(String username, String password) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("username", username);
+        contentValues.put("password", password);
+
+        long result = DB.insert("User", null, contentValues);
 
         return result != -1;
     }
