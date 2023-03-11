@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Login">
+    tools:context=".Signup">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/prijava"
+        android:text="@string/registracija"
         android:textSize="30sp"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -38,48 +38,68 @@
         app:layout_constraintVertical_bias="0.02" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/name"
         android:layout_width="229dp"
         android:layout_height="57dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
-        android:hint="@string/sifra"
         android:inputType="textPersonName"
         android:textColor="@color/black"
+        android:hint="@string/ime"
         android:textColorHint="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.02" />
 
-    <Button
-        android:id="@+id/potvrdi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/cardview_shadow_end_color"
-        android:text="@string/potvrdi"
+    <EditText
+        android:id="@+id/surname"
+        android:layout_width="229dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:hint="@string/prezime"
+        android:textColorHint="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="229dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="@color/black"
+        android:hint="Šifra"
+        android:textColorHint="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/surname"
+        app:layout_constraintVertical_bias="0.02" />
+
+    <EditText
+        android:id="@+id/passwordConfirm"
+        android:layout_width="229dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColor="@color/black"
+        android:hint="@string/potvrdi_sifru"
+        android:textColorHint="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.2" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nemate_racun"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/potvrdi"
-        app:layout_constraintVertical_bias="0.102" />
+        app:layout_constraintVertical_bias="0.02" />
 
     <Button
         android:id="@+id/registracija"
@@ -87,14 +107,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="47dp"
         android:backgroundTint="@color/cardview_shadow_end_color"
-        android:text="@string/registracija"
+        android:text="Registracija"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/passwordConfirm"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

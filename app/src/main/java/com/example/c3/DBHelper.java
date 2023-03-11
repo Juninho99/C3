@@ -9,25 +9,21 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
-        super(context, "Article.db", null, 1);
+        super(context, "C3.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
         DB.execSQL("CREATE TABLE List(id INTEGER PRIMARY KEY, name TEXT)");
         DB.execSQL("CREATE TABLE Article(id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, description TEXT, list_id INTEGER REFERENCES List(id))");
-        DB.execSQL("CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, password TEXT)");
+        DB.execSQL("CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, name TEXT, surname TEXT, password TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase DB, int i, int ii) {
         DB.execSQL("DROP TABLE IF EXISTS List");
         DB.execSQL("DROP TABLE IF EXISTS Article");
-    }
-
-    public void makeNewTable(String name) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        DB.execSQL(name);
+        DB.execSQL("DROP TABLE IF EXISTS User");
     }
 
     public boolean insertItem(String imeArtikla, String kolicina, String dodatneInfo, Integer idListe) {
@@ -53,15 +49,30 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public boolean insertUser(String username, String password) {
+    public boolean insertUser(String username, String name, String surname, String password) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("username", username);
+        contentValues.put("name", name);
+        contentValues.put("surname", surname);
         contentValues.put("password", password);
 
         long result = DB.insert("User", null, contentValues);
 
         return result != -1;
+    }
+
+    public boolean checkUser(String username, String password) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT * FROM User", null);
+        while(cursor.moveToNext())
+        {
+            System.out.println("----------" + cursor.getString(1));
+            System.out.println("----------" + cursor.getString(4));
+            if(cursor.getString(1).equals(username) && cursor.getString(4).equals(password))
+                return true;
+        }
+        return false;
     }
 
     public boolean deleteList(String name) {

@@ -21,4 +21,9 @@
     <string name="prijava">Prijava</string>
     <string name="korisnicko_ime">Korisničko ime</string>
     <string name="sifra">Šifra</string>
+    <string name="nemate_racun">Nemate račun?</string>
+    <string name="registracija">Registracija</string>
+    <string name="ime">Ime</string>
+    <string name="prezime">Prezime</string>
+    <string name="potvrdi_sifru">Potvrdi šifru</string>
 </resources>
