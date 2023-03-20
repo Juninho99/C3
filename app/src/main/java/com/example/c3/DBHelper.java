@@ -65,15 +65,37 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public boolean checkUser(String username, String password) {
+    public boolean insertUserList(Integer userId, Integer listID) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("idUser", userId);
+        contentValues.put("idList", listID);
+
+        long result = DB.insert("UserList", null, contentValues);
+
+        return result != -1;
+    }
+
+    public int checkUser(String username, String password) {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("SELECT * FROM User", null);
         while(cursor.moveToNext())
         {
             if(cursor.getString(1).equals(username) && cursor.getString(4).equals(password))
-                return true;
+                return cursor.getInt(0);
         }
-        return false;
+        return -1;
+    }
+
+    public int getListId(String name) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT * FROM List", null);
+        while(cursor.moveToNext())
+        {
+            if(cursor.getString(1).equals(name))
+                return cursor.getInt(0);
+        }
+        return -1;
     }
 
     public boolean deleteList(String name) {

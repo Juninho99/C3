@@ -13,11 +13,12 @@ import java.util.Random;
 public class AddList extends AppCompatActivity {
 
     private static final String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String NUMBERS = "0123456789";
     public Button nazad;
     public Button potvrdi;
     public EditText imeListe;
     DBHelper DB;
+
+    int userId;
 
     public static String generateRandomCode() {
         StringBuilder sb = new StringBuilder();
@@ -62,12 +63,15 @@ public class AddList extends AppCompatActivity {
         potvrdi = findViewById(R.id.potvrdi);
         imeListe = findViewById(R.id.imeListe);
 
+        userId = getIntent().getIntExtra("userId", 0);
+
         DB = new DBHelper(this);
 
         nazad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (AddList.this, MainActivity.class);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });
@@ -80,8 +84,13 @@ public class AddList extends AppCompatActivity {
                 Boolean checkInsertData = DB.insertList(ime, generateRandomCode());
 
                 if(checkInsertData) {
-                    Intent intent = new Intent(AddList.this, MainActivity.class);
-                    startActivity(intent);
+                    int listId = DB.getListId(ime);
+                    Boolean checkInsertUserList = DB.insertUserList(userId, listId);
+                    if(checkInsertUserList) {
+                        Intent intent = new Intent(AddList.this, MainActivity.class);
+                        intent.putExtra("userId", userId);
+                        startActivity(intent);
+                    }
                 }
             }
         });

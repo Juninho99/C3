@@ -32,10 +32,11 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
-                Boolean checkInsertData = DB.checkUser(user, pass);
+                int checkInsertData = DB.checkUser(user, pass);
 
-                if(checkInsertData) {
+                if(checkInsertData != -1) {
                     Intent intent = new Intent (Login.this, MainActivity.class);
+                    intent.putExtra("userId", checkInsertData);
                     startActivity(intent);
                 }
 

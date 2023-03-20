@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     DBHelper DB;
     MyAdapter adapter;
 
+    int userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         izaberi = findViewById(R.id.izaberi);
         kreirajNovuListu = findViewById(R.id.kreirajNovuListu);
         pridruziSeListi = findViewById(R.id.pridruziSeListi);
+
+        userId = getIntent().getIntExtra("userId", 0);
 
         izaberi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (MainActivity.this, AddList.class);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });
@@ -64,12 +69,18 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     }
 
     private void displaydata() {
-        Cursor cursor = DB.getAllLists("List");
-        while(cursor.moveToNext())
-        {
-            editList.add(cursor.getString(1));
-            idList.add(cursor.getInt(0));
-            listCode.add(cursor.getString(2));
+        Cursor corsorUserList = DB.getAllLists("UserList");
+        while(corsorUserList.moveToNext()) {
+            if(userId == corsorUserList.getInt(1)) {
+                Cursor cursor = DB.getAllLists("List");
+                while (cursor.moveToNext()) {
+                    if(corsorUserList.getInt(2) == cursor.getInt(0)) {
+                        editList.add(cursor.getString(1));
+                        idList.add(cursor.getInt(0));
+                        listCode.add(cursor.getString(2));
+                    }
+                }
+            }
         }
     }
 

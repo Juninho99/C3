@@ -47,6 +47,7 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
                 Intent intent = new Intent (SelectedList.this, AddItem.class);
                 intent.putExtra("idOfList", idOfList);
                 intent.putExtra("listName", imeListe);
+                intent.putExtra("listCode", listCode);
                 startActivity(intent);
             }
         });
