@@ -1,6 +1,7 @@
 package com.example.c3;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -15,7 +16,11 @@ import java.util.ArrayList;
 
 public class SelectedList extends Activity implements RecyclerViewInterface{
 
-    Button dodaj;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+
+    String listCode;
+    Button dodaj, prikaziKodListe;
     RecyclerView recyclerView;
     ArrayList<String> editList;
     DBHelper DB;
@@ -28,11 +33,13 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
 
         String imeListe = getIntent().getStringExtra("listName");
         idOfList = getIntent().getIntExtra("idOfList", 0);
+        listCode = getIntent().getStringExtra("listCode");
 
         TextView textView = findViewById(R.id.textView);
         textView.setText(imeListe);
 
         dodaj = findViewById(R.id.dodaj);
+        prikaziKodListe = findViewById(R.id.prikaziKodListe);
 
         dodaj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +48,13 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
                 intent.putExtra("idOfList", idOfList);
                 intent.putExtra("listName", imeListe);
                 startActivity(intent);
+            }
+        });
+
+        prikaziKodListe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createNewCodeDialog();
             }
         });
 
@@ -73,5 +87,26 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
     @Override
     public void onItemLongClick(int position) {
 
+    }
+
+    public void createNewCodeDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View codePopupView = getLayoutInflater().inflate(R.layout.codepopup, null);
+
+        TextView textView = codePopupView.findViewById(R.id.textView1);
+        textView.setText(listCode);
+
+        Button ok = codePopupView.findViewById(R.id.ok);
+
+        dialogBuilder.setView(codePopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }

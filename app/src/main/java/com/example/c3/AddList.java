@@ -8,12 +8,50 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Random;
+
 public class AddList extends AppCompatActivity {
 
+    private static final String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String NUMBERS = "0123456789";
     public Button nazad;
     public Button potvrdi;
     public EditText imeListe;
     DBHelper DB;
+
+    public static String generateRandomCode() {
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+
+        // Generišemo prva 2 slova
+        for (int i = 0; i < 2; i++) {
+            int index = random.nextInt(LETTERS.length());
+            char c = LETTERS.charAt(index);
+            sb.append(c);
+        }
+
+        // Generišemo prvi broj
+        int number1 = random.nextInt(10);
+        sb.append(number1);
+
+        // Generišemo 1 slovo
+        int index = random.nextInt(LETTERS.length());
+        char c = LETTERS.charAt(index);
+        sb.append(c);
+
+        // Generišemo drugi broj
+        int number2 = random.nextInt(10);
+        sb.append(number2);
+
+        // Generišemo zadnja 2 slova
+        for (int i = 0; i < 2; i++) {
+            int index2 = random.nextInt(LETTERS.length());
+            char c2 = LETTERS.charAt(index2);
+            sb.append(c2);
+        }
+
+        return sb.toString();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +77,7 @@ public class AddList extends AppCompatActivity {
             public void onClick(View v) {
                 String ime = imeListe.getText().toString();
 
-                Boolean checkInsertData = DB.insertList(ime);
-                //String imeNoveTabele = "CREATE TABLE " + ime + "(id INTEGER PRIMARY KEY, name TEXT, quantity TEXT, description TEXT)";
-                //DB.makeNewTable(imeNoveTabele);
+                Boolean checkInsertData = DB.insertList(ime, generateRandomCode());
 
                 if(checkInsertData) {
                     Intent intent = new Intent(AddList.this, MainActivity.class);

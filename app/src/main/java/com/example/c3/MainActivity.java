@@ -17,9 +17,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     public Button izaberi;
     public Button kreirajNovuListu;
+
+    public Button pridruziSeListi;
     RecyclerView recyclerView;
     ArrayList<String> editList;
     ArrayList<Integer> idList;
+
+    ArrayList<String> listCode;
     DBHelper DB;
     MyAdapter adapter;
 
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         izaberi = findViewById(R.id.izaberi);
         kreirajNovuListu = findViewById(R.id.kreirajNovuListu);
+        pridruziSeListi = findViewById(R.id.pridruziSeListi);
 
         izaberi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         DB = new DBHelper(this);
         editList = new ArrayList<>();
         idList = new ArrayList<>();
+        listCode = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new MyAdapter(this, editList, this);
         recyclerView.setAdapter(adapter);
@@ -63,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         {
             editList.add(cursor.getString(1));
             idList.add(cursor.getInt(0));
+            listCode.add(cursor.getString(2));
         }
     }
 
@@ -72,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         intent.putExtra("listName", String.valueOf(editList.get(position)));
         intent.putExtra("idOfList", idList.get(position));
+        intent.putExtra("listCode", listCode.get(position));
         startActivity(intent);
     }
 

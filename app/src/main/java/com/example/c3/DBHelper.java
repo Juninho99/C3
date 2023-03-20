@@ -14,9 +14,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
-        DB.execSQL("CREATE TABLE List(id INTEGER PRIMARY KEY, name TEXT)");
+        DB.execSQL("CREATE TABLE List(id INTEGER PRIMARY KEY, name TEXT, code TEXT)");
         DB.execSQL("CREATE TABLE Article(id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, description TEXT, list_id INTEGER REFERENCES List(id))");
         DB.execSQL("CREATE TABLE User(id INTEGER PRIMARY KEY, username TEXT, name TEXT, surname TEXT, password TEXT)");
+        DB.execSQL("CREATE TABLE UserList(id INTEGER PRIMARY KEY, idUser INTEGER REFERENCES User(id), idList INTEGER REFERENCES List(id))");
     }
 
     @Override
@@ -24,6 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
         DB.execSQL("DROP TABLE IF EXISTS List");
         DB.execSQL("DROP TABLE IF EXISTS Article");
         DB.execSQL("DROP TABLE IF EXISTS User");
+        DB.execSQL("DROP TABLE IF EXISTS UserList");
     }
 
     public boolean insertItem(String imeArtikla, String kolicina, String dodatneInfo, Integer idListe) {
@@ -39,10 +41,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public boolean insertList(String name) {
+    public boolean insertList(String name, String code) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", name);
+        contentValues.put("code", code);
 
         long result = DB.insert("List", null, contentValues);
 
@@ -67,8 +70,6 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = DB.rawQuery("SELECT * FROM User", null);
         while(cursor.moveToNext())
         {
-            System.out.println("----------" + cursor.getString(1));
-            System.out.println("----------" + cursor.getString(4));
             if(cursor.getString(1).equals(username) && cursor.getString(4).equals(password))
                 return true;
         }
