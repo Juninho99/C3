@@ -109,11 +109,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return -1;
     }
 
-    public boolean deleteList(String name) {
+    public boolean deleteList(int idList, int idUser) {
         SQLiteDatabase DB = this.getWritableDatabase();
-        String deleteTable = "DROP TABLE IF EXISTS " + name;
-        DB.execSQL(deleteTable);
-        long result = DB.delete("List", "name=?", new String[]{name});
+        long result = DB.delete("UserList", "idUser=" + idUser + " AND idList=" + idList, null);
         return result != -1;
     }
 
