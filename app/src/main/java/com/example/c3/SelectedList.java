@@ -20,13 +20,14 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
     private AlertDialog dialog;
 
     String listCode;
-    Button dodaj, prikaziKodListe;
+    Button dodaj, prikaziKodListe, nazad;
     RecyclerView recyclerView;
     ArrayList<String> editList;
     DBHelper DB;
     MyAdapter adapter;
     Integer idOfList;
     String imeListe;
+    int userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +37,14 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
         idOfList = getIntent().getIntExtra("idOfList", 0);
         listCode = getIntent().getStringExtra("listCode");
 
+        userId = getIntent().getIntExtra("userId", 0);
+
         TextView textView = findViewById(R.id.textView);
         textView.setText(imeListe);
 
         dodaj = findViewById(R.id.dodaj);
         prikaziKodListe = findViewById(R.id.prikaziKodListe);
+        nazad = findViewById(R.id.nazad);
 
         dodaj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +53,7 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
                 intent.putExtra("idOfList", idOfList);
                 intent.putExtra("listName", imeListe);
                 intent.putExtra("listCode", listCode);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });
@@ -57,6 +62,15 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
             @Override
             public void onClick(View v) {
                 createNewCodeDialog();
+            }
+        });
+
+        nazad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (SelectedList.this, MainActivity.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
             }
         });
 
@@ -78,7 +92,11 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
         }
     }
 
-    public void dodajItem(View view) {
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent (SelectedList.this, MainActivity.class);
+        intent.putExtra("userId", userId);
+        startActivity(intent);
     }
 
     @Override
@@ -89,6 +107,7 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
         intent.putExtra("idOfList", idOfList);
         intent.putExtra("listCode", listCode);
         intent.putExtra("articleName", String.valueOf(editList.get(position)));
+        intent.putExtra("userId", userId);
         startActivity(intent);
     }
 

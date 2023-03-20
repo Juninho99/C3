@@ -20,6 +20,7 @@ public class ChangeItem extends AppCompatActivity {
     DBHelper DB;
     String listCode;
     String articleName;
+    int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class ChangeItem extends AppCompatActivity {
         String imeListe = getIntent().getStringExtra("listName");
         listCode = getIntent().getStringExtra("listCode");
         articleName = getIntent().getStringExtra("articleName");
+        userId = getIntent().getIntExtra("userId", 0);
 
         nazad = findViewById(R.id.nazad);
         potvrdi = findViewById(R.id.potvrdi);
@@ -48,6 +50,7 @@ public class ChangeItem extends AppCompatActivity {
                 intent.putExtra("listName", imeListe);
                 intent.putExtra("idOfList", idOfList);
                 intent.putExtra("listCode", listCode);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });
@@ -71,6 +74,7 @@ public class ChangeItem extends AppCompatActivity {
                     intent.putExtra("listName", imeListe);
                     intent.putExtra("idOfList", idOfList);
                     intent.putExtra("listCode", listCode);
+                    intent.putExtra("userId", userId);
                     startActivity(intent);
                 }
             }

@@ -21,8 +21,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     public Button kreirajNovuListu;
-
     public Button pridruziSeListi;
+
+    public Button profil, odjava;
     RecyclerView recyclerView;
     ArrayList<String> editList;
     ArrayList<Integer> idList;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         kreirajNovuListu = findViewById(R.id.kreirajNovuListu);
         pridruziSeListi = findViewById(R.id.pridruziSeListi);
+        profil = findViewById(R.id.profil);
+        odjava = findViewById(R.id.odjava);
 
         userId = getIntent().getIntExtra("userId", 0);
 
@@ -52,10 +55,27 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             }
         });
 
+        profil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (MainActivity.this, Profil.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+            }
+        });
+
         pridruziSeListi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createNewCodeDialog();
+            }
+        });
+
+        odjava.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (MainActivity.this, Login.class);
+                startActivity(intent);
             }
         });
 
@@ -93,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         intent.putExtra("listName", String.valueOf(editList.get(position)));
         intent.putExtra("idOfList", idList.get(position));
         intent.putExtra("listCode", listCode.get(position));
+        intent.putExtra("userId", userId);
         startActivity(intent);
     }
 
@@ -103,6 +124,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
         editList.remove(position);
         adapter.notifyItemRemoved(position);
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 
