@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    public Button izaberi;
     public Button kreirajNovuListu;
 
     public Button pridruziSeListi;
@@ -39,19 +38,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        izaberi = findViewById(R.id.izaberi);
         kreirajNovuListu = findViewById(R.id.kreirajNovuListu);
         pridruziSeListi = findViewById(R.id.pridruziSeListi);
 
         userId = getIntent().getIntExtra("userId", 0);
-
-        izaberi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (MainActivity.this, SelectedList.class);
-                startActivity(intent);
-            }
-        });
 
         kreirajNovuListu.setOnClickListener(new View.OnClickListener() {
             @Override
