@@ -122,4 +122,17 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = DB.rawQuery("SELECT * FROM " + name, null);
         return cursor;
     }
+
+    public boolean updateList(String imeArtikla, String kolicina, String dodatneInfo, Integer idListe) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", imeArtikla);
+        contentValues.put("quantity", kolicina);
+        contentValues.put("description", dodatneInfo);
+        contentValues.put("list_id", idListe);
+
+        long result = DB.update("Article", contentValues, "list_id=?", new String[]{idListe.toString()});
+
+        return result != -1;
+    }
 }

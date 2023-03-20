@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     }
 
     public void createNewCodeDialog(){
-        System.out.println("********************************************");
         dialogBuilder = new AlertDialog.Builder(this);
         final View codePopupView = getLayoutInflater().inflate(R.layout.inputcodepopup, null);
 

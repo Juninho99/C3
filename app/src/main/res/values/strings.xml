@@ -26,4 +26,5 @@
     <string name="ime">Ime</string>
     <string name="prezime">Prezime</string>
     <string name="potvrdi_sifru">Potvrdi šifru</string>
+    <string name="ime_artikla">Ime artikla</string>
 </resources>

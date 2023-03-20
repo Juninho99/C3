@@ -26,12 +26,13 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
     DBHelper DB;
     MyAdapter adapter;
     Integer idOfList;
+    String imeListe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selected_list);
 
-        String imeListe = getIntent().getStringExtra("listName");
+        imeListe = getIntent().getStringExtra("listName");
         idOfList = getIntent().getIntExtra("idOfList", 0);
         listCode = getIntent().getStringExtra("listCode");
 
@@ -82,7 +83,13 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
 
     @Override
     public void onItemClick(int position) {
+        Intent intent = new Intent(SelectedList.this, ChangeItem.class);
 
+        intent.putExtra("listName", imeListe);
+        intent.putExtra("idOfList", idOfList);
+        intent.putExtra("listCode", listCode);
+        intent.putExtra("articleName", String.valueOf(editList.get(position)));
+        startActivity(intent);
     }
 
     @Override
