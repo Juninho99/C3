@@ -98,6 +98,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return -1;
     }
 
+    public int checkCode(String code) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT * FROM List", null);
+        while(cursor.moveToNext())
+        {
+            if(cursor.getString(2).equals(code))
+                return cursor.getInt(0);
+        }
+        return -1;
+    }
+
     public boolean deleteList(String name) {
         SQLiteDatabase DB = this.getWritableDatabase();
         String deleteTable = "DROP TABLE IF EXISTS " + name;

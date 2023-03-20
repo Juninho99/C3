@@ -11,7 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/odaberite_listu"
+        android:text="Unesite kod liste:"
         android:textSize="30sp"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -21,74 +21,50 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="272dp"
-        android:layout_height="231dp"
-        android:layout_marginTop="52dp"
+    <EditText
+        android:id="@+id/codeListe"
+        android:layout_width="229dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:hint="@string/ime_liste"
+        android:textColorHint="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.1"/>
+        app:layout_constraintVertical_bias="0.02" />
 
     <Button
-        android:id="@+id/izaberi"
+        android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/cardview_shadow_end_color"
-        android:text="@string/izaberi"
+        android:text="OK"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.281"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/codeListe"
+        app:layout_constraintVertical_bias="0.2" />
 
     <Button
-        android:id="@+id/kreirajNovuListu"
+        android:id="@+id/nazad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/cardview_shadow_end_color"
-        android:text="@string/kreiraj_novu_listu"
+        android:text="Nazad"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.699"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/izaberi"
-        app:layout_constraintVertical_bias="0.05" />
-
-    <Button
-        android:id="@+id/pridruziSeListi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/cardview_shadow_end_color"
-        android:text="@string/pridruzi_se_listi"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kreirajNovuListu"
-        app:layout_constraintVertical_bias="0.05" />
-
-    <Button
-        android:id="@+id/odjava"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/cardview_shadow_end_color"
-        android:text="@string/odjava"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pridruziSeListi"
-        app:layout_constraintVertical_bias="0.5" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/codeListe"
+        app:layout_constraintVertical_bias="0.2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

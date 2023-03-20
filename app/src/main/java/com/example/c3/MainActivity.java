@@ -4,17 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewInterface{
 
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
     public Button izaberi;
     public Button kreirajNovuListu;
 
@@ -54,6 +59,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 Intent intent = new Intent (MainActivity.this, AddList.class);
                 intent.putExtra("userId", userId);
                 startActivity(intent);
+            }
+        });
+
+        pridruziSeListi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createNewCodeDialog();
             }
         });
 
@@ -102,5 +114,47 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         editList.remove(position);
         adapter.notifyItemRemoved(position);
 
+    }
+
+    public void createNewCodeDialog(){
+        System.out.println("********************************************");
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View codePopupView = getLayoutInflater().inflate(R.layout.inputcodepopup, null);
+
+        EditText code = codePopupView.findViewById(R.id.codeListe);
+
+        Button ok = codePopupView.findViewById(R.id.ok);
+        Button nazad = codePopupView.findViewById(R.id.nazad);
+
+        dialogBuilder.setView(codePopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        nazad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String codeListe = code.getText().toString();
+
+                int listId = DB.checkCode(codeListe);
+
+                if(listId != -1) {
+                    Boolean checkInsertUserList = DB.insertUserList(userId, listId);
+                    if(checkInsertUserList) {
+                        editList.removeAll(editList);
+                        idList.removeAll(idList);
+                        listCode.removeAll(listCode);
+                        displaydata();
+                        dialog.dismiss();
+                    }
+                }
+            }
+        });
     }
 }
