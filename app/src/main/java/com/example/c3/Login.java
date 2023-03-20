@@ -14,6 +14,9 @@ public class Login extends AppCompatActivity {
     public EditText username;
     public EditText password;
     DBHelper DB;
+    private static final int BACK_PRESS_DELAY = 2000; // Vrijeme (u milisekundama) u kojem se očekuje dvostruki klik
+    private long backPressTime; // Vrijeme pritiska na tipku "Back"
+    private int backPressCount; // Broj pritisaka na tipku "Back"
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +53,19 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backPressTime + BACK_PRESS_DELAY > System.currentTimeMillis()) {
+            backPressCount++; // Povećaj broj pritisaka
+            if (backPressCount >= 2) {
+                finishAffinity(); // Završi sve aktivnosti povezane s trenutnom aktivnošću
+                System.exit(0); // Ubij proces i izađi iz aplikacije
+            }
+        } else {
+            backPressCount = 1; // Resetiraj broj pritisaka ako je prošlo više od BACK_PRESS_DELAY vremena
+        }
+        backPressTime = System.currentTimeMillis(); // Ažuriraj vrijeme pritiska
     }
 }
