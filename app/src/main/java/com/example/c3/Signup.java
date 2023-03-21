@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Signup extends AppCompatActivity {
 
@@ -50,11 +51,26 @@ public class Signup extends AppCompatActivity {
                 System.out.println("-------------" + passwordConfirm_.isEmpty());
                 System.out.println("-------------" + !surname_.isEmpty());
                 if(!username_.isEmpty() && !name_.isEmpty() && !surname_.isEmpty() && !password_.isEmpty() && !passwordConfirm_.isEmpty() && password_.equals(passwordConfirm_)) {
-                    Boolean checkInsertData = DB.insertUser(username_, name_, surname_, password_);
-                    if(checkInsertData) {
-                        Intent intent = new Intent (Signup.this, Login.class);
-                        startActivity(intent);
+                    Boolean userExist = DB.userExist(username_);
+                    if (!userExist) {
+                        Boolean checkInsertData = DB.insertUser(username_, name_, surname_, password_);
+                        if (checkInsertData) {
+                            Intent intent = new Intent(Signup.this, Login.class);
+                            startActivity(intent);
+                        }
                     }
+                    else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Već postoji korisnik sa takvim username-om", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                }
+                else if(username_.isEmpty() || name_.isEmpty() || surname_.isEmpty() || password_.isEmpty() || passwordConfirm_.isEmpty()) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Nijedno polje za unos ne smije biti prazno", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if(!password_.equals(passwordConfirm_)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Password i potvrda passworda moraju biti isti", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });

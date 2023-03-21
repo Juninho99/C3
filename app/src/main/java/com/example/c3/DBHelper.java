@@ -87,6 +87,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return -1;
     }
 
+    public boolean userExist(String username) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT * FROM User", null);
+        while(cursor.moveToNext())
+        {
+            if(cursor.getString(1).equals(username))
+                return true;
+        }
+        return false;
+    }
+
     public int getListId(String name) {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("SELECT * FROM List", null);
@@ -127,7 +138,6 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("name", imeArtikla);
         contentValues.put("quantity", kolicina);
         contentValues.put("description", dodatneInfo);
-        contentValues.put("list_id", idItem);
 
         long result = DB.update("Article", contentValues, "id=?", new String[]{idItem.toString()});
 
