@@ -127,6 +127,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    public boolean deleteItem(int idItem) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        long result = DB.delete("Article", "id=" + idItem, null);
+        return result != -1;
+    }
+
     public Cursor getAllLists(String name) {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("SELECT * FROM " + name, null);

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +24,7 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
     Button dodaj, prikaziKodListe, nazad;
     RecyclerView recyclerView;
     ArrayList<String> editList, opisList;
-    ArrayList<Integer> kolList;
+    ArrayList<Integer> kolList, idItem;
     DBHelper DB;
     MyAdapter adapter;
     Integer idOfList;
@@ -77,8 +78,9 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
 
         DB = new DBHelper(this);
         editList = new ArrayList<>();
-        kolList = new ArrayList<Integer>();
+        kolList = new ArrayList<>();
         opisList = new ArrayList<>();
+        idItem = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new MyAdapter(this, editList, this);
         recyclerView.setAdapter(adapter);
@@ -91,6 +93,7 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
         while(cursor.moveToNext())
         {
             if(cursor.getInt(4) == idOfList) {
+                idItem.add(cursor.getInt(0));
                 editList.add(cursor.getString(1));
                 kolList.add(cursor.getInt(2));
                 opisList.add(cursor.getString(3));
@@ -121,7 +124,7 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
 
     @Override
     public void onItemLongClick(int position) {
-
+        createDeleteItemDialog(position);
     }
 
     public void createNewCodeDialog(){
@@ -140,6 +143,41 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    public void createDeleteItemDialog(int position){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View codePopupView = getLayoutInflater().inflate(R.layout.delete_item, null);
+
+        Button ok = codePopupView.findViewById(R.id.ok);
+        Button nazad = codePopupView.findViewById(R.id.nazad);
+
+        dialogBuilder.setView(codePopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        nazad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int idItema = idItem.get(position);
+                Boolean deleteData = DB.deleteItem(idItema);
+
+                editList.remove(position);
+                adapter.notifyItemRemoved(position);
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Uspješno brisanje artikla", Toast.LENGTH_SHORT);
+                toast.show();
+
                 dialog.dismiss();
             }
         });

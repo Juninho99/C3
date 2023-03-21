@@ -118,12 +118,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     @Override
     public void onItemLongClick(int position) {
-        int idListe = idList.get(position);
-        Boolean deleteData = DB.deleteList(idListe, userId);
-
-        editList.remove(position);
-        adapter.notifyItemRemoved(position);
-
+        createDeleteListDialog(position);
     }
 
     @Override
@@ -159,16 +154,28 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 int listId = DB.checkCode(codeListe);
 
                 if(listId != -1) {
-                    Boolean checkInsertUserList = DB.insertUserList(userId, listId);
-                    if(checkInsertUserList) {
-                        editList.removeAll(editList);
-                        idList.removeAll(idList);
-                        listCode.removeAll(listCode);
-                        displaydata();
-                        dialog.dismiss();
+                    Boolean temp = false;
+                    Cursor corsorUserList = DB.getAllLists("UserList");
+                    while(corsorUserList.moveToNext()) {
+                        if(userId == corsorUserList.getInt(1) && corsorUserList.getInt(2) == listId) {
+                            temp = true;
+                            Toast toast = Toast.makeText(getApplicationContext(), "Već ste pridruženi ovoj listi.", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
 
-                        Toast toast = Toast.makeText(getApplicationContext(), "Uspješno pridruživanje listi", Toast.LENGTH_SHORT);
-                        toast.show();
+                    if(!temp) {
+                        Boolean checkInsertUserList = DB.insertUserList(userId, listId);
+                        if (checkInsertUserList) {
+                            editList.removeAll(editList);
+                            idList.removeAll(idList);
+                            listCode.removeAll(listCode);
+                            displaydata();
+                            dialog.dismiss();
+
+                            Toast toast = Toast.makeText(getApplicationContext(), "Uspješno pridruživanje listi", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
                     }
                 }
                 else {
@@ -204,6 +211,41 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 startActivity(intent);
                 Toast toast = Toast.makeText(getApplicationContext(), "Odjava je uspješna.", Toast.LENGTH_SHORT);
                 toast.show();
+            }
+        });
+    }
+
+    public void createDeleteListDialog(int position){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View codePopupView = getLayoutInflater().inflate(R.layout.delete_list, null);
+
+        Button ok = codePopupView.findViewById(R.id.ok);
+        Button nazad = codePopupView.findViewById(R.id.nazad);
+
+        dialogBuilder.setView(codePopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        nazad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int idListe = idList.get(position);
+                Boolean deleteData = DB.deleteList(idListe, userId);
+
+                editList.remove(position);
+                adapter.notifyItemRemoved(position);
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Uspješan izlazak sa liste", Toast.LENGTH_SHORT);
+                toast.show();
+
+                dialog.dismiss();
             }
         });
     }
