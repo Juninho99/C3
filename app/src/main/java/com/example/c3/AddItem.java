@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddItem extends AppCompatActivity {
 
@@ -54,25 +55,32 @@ public class AddItem extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String ime = imeArtikla.getText().toString();
-                String info = dodatneInfo.getText().toString();
-                Integer kol = 0;
-                if(!kolicina.getText().toString().isEmpty())
-                    kol = Integer.parseInt(kolicina.getText().toString());
 
-                System.out.println("+++++++++++++++++++++ " + idOfList);
-                System.out.println("+++++++++++++++++++++ " + ime);
-                System.out.println("+++++++++++++++++++++ " + kol);
-                System.out.println("+++++++++++++++++++++ " + info);
+                if(!ime.isEmpty()) {
+                    String info = dodatneInfo.getText().toString();
+                    Integer kol = 0;
+                    if (!kolicina.getText().toString().isEmpty())
+                        kol = Integer.parseInt(kolicina.getText().toString());
 
-                Boolean checkInsertData = DB.insertItem(ime, kol, info, idOfList);
+                    System.out.println("+++++++++++++++++++++ " + idOfList);
+                    System.out.println("+++++++++++++++++++++ " + ime);
+                    System.out.println("+++++++++++++++++++++ " + kol);
+                    System.out.println("+++++++++++++++++++++ " + info);
 
-                if(checkInsertData) {
-                    Intent intent = new Intent(AddItem.this, SelectedList.class);
-                    intent.putExtra("listName", imeListe);
-                    intent.putExtra("idOfList", idOfList);
-                    intent.putExtra("listCode", listCode);
-                    intent.putExtra("userId", userId);
-                    startActivity(intent);
+                    Boolean checkInsertData = DB.insertItem(ime, kol, info, idOfList);
+
+                    if (checkInsertData) {
+                        Intent intent = new Intent(AddItem.this, SelectedList.class);
+                        intent.putExtra("listName", imeListe);
+                        intent.putExtra("idOfList", idOfList);
+                        intent.putExtra("listCode", listCode);
+                        intent.putExtra("userId", userId);
+                        startActivity(intent);
+                    }
+                }
+                else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Naziv artikla ne smije biti prazan", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });

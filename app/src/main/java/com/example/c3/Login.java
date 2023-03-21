@@ -42,6 +42,8 @@ public class Login extends AppCompatActivity {
                     Intent intent = new Intent (Login.this, MainActivity.class);
                     intent.putExtra("userId", checkInsertData);
                     startActivity(intent);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Prijava je uspješna.", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
                 else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Pogrešno korisničko ime ili lozinka", Toast.LENGTH_SHORT);

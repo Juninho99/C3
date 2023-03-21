@@ -166,6 +166,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                         listCode.removeAll(listCode);
                         displaydata();
                         dialog.dismiss();
+
+                        Toast toast = Toast.makeText(getApplicationContext(), "Uspješno pridruživanje listi", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 }
                 else {

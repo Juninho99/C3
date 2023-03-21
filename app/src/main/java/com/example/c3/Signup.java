@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class Signup extends AppCompatActivity {
 
-    public Button registracija;
+    public Button registracija, nazad;
     public EditText username, name, surname, password, passwordConfirm;
     DBHelper DB;
 
@@ -26,9 +26,17 @@ public class Signup extends AppCompatActivity {
         password = findViewById(R.id.password);
         passwordConfirm = findViewById(R.id.passwordConfirm);
         registracija = findViewById(R.id.registracija);
+        nazad = findViewById(R.id.nazad);
 
         DB = new DBHelper(this);
 
+        nazad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Signup.this, Login.class);
+                startActivity(intent);
+            }
+        });
         registracija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
