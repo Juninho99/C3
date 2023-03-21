@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     public Button kreirajNovuListu;
     public Button pridruziSeListi;
 
-    public Button profil, odjava;
+    public Button profil, odjava, help;
     RecyclerView recyclerView;
     ArrayList<String> editList;
     ArrayList<Integer> idList;
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         pridruziSeListi = findViewById(R.id.pridruziSeListi);
         profil = findViewById(R.id.profil);
         odjava = findViewById(R.id.odjava);
+        help = findViewById(R.id.help);
 
         userId = getIntent().getIntExtra("userId", 0);
 
@@ -75,6 +76,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             @Override
             public void onClick(View v) {
                 createOdjavaDialog();
+            }
+        });
+
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createHelpDialog();
             }
         });
 
@@ -123,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     @Override
     public void onBackPressed() {
-
+        //ovo treba biti prazno, jer ako nije nadređena metoda odluči da se vrati na prethodni ekran, a ja ne želim to
     }
 
     public void createNewCodeDialog(){
@@ -245,6 +253,24 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 Toast toast = Toast.makeText(getApplicationContext(), "Uspješan izlazak sa liste", Toast.LENGTH_SHORT);
                 toast.show();
 
+                dialog.dismiss();
+            }
+        });
+    }
+
+    public void createHelpDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View codePopupView = getLayoutInflater().inflate(R.layout.help_activity_main, null);
+
+        Button ok = codePopupView.findViewById(R.id.ok);
+
+        dialogBuilder.setView(codePopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });

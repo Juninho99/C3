@@ -91,6 +91,19 @@
         app:layout_constraintTop_toBottomOf="@+id/pridruziSeListi"
         app:layout_constraintVertical_bias="0.5" />
 
-
+    <Button
+        android:id="@+id/help"
+        android:layout_width="56dp"
+        android:layout_height="63dp"
+        android:backgroundTint="@color/cardview_shadow_end_color"
+        android:text="H"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.918"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.052" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
