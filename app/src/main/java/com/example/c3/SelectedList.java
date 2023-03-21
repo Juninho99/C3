@@ -22,7 +22,8 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
     String listCode;
     Button dodaj, prikaziKodListe, nazad;
     RecyclerView recyclerView;
-    ArrayList<String> editList;
+    ArrayList<String> editList, opisList;
+    ArrayList<Integer> kolList;
     DBHelper DB;
     MyAdapter adapter;
     Integer idOfList;
@@ -76,6 +77,8 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
 
         DB = new DBHelper(this);
         editList = new ArrayList<>();
+        kolList = new ArrayList<Integer>();
+        opisList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new MyAdapter(this, editList, this);
         recyclerView.setAdapter(adapter);
@@ -87,8 +90,11 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
         Cursor cursor = DB.getAllLists("Article");
         while(cursor.moveToNext())
         {
-            if(cursor.getInt(4) == idOfList)
+            if(cursor.getInt(4) == idOfList) {
                 editList.add(cursor.getString(1));
+                kolList.add(cursor.getInt(2));
+                opisList.add(cursor.getString(3));
+            }
         }
     }
 
@@ -107,6 +113,8 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
         intent.putExtra("idOfList", idOfList);
         intent.putExtra("listCode", listCode);
         intent.putExtra("articleName", String.valueOf(editList.get(position)));
+        intent.putExtra("kolicina", kolList.get(position));
+        intent.putExtra("opis", String.valueOf(opisList.get(position)));
         intent.putExtra("userId", userId);
         startActivity(intent);
     }

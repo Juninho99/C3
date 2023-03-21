@@ -54,8 +54,10 @@ public class AddItem extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String ime = imeArtikla.getText().toString();
-                String kol = kolicina.getText().toString();
                 String info = dodatneInfo.getText().toString();
+                Integer kol = 0;
+                if(!kolicina.getText().toString().isEmpty())
+                    kol = Integer.parseInt(kolicina.getText().toString());
 
                 System.out.println("+++++++++++++++++++++ " + idOfList);
                 System.out.println("+++++++++++++++++++++ " + ime);

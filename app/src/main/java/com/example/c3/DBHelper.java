@@ -28,7 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
         DB.execSQL("DROP TABLE IF EXISTS UserList");
     }
 
-    public boolean insertItem(String imeArtikla, String kolicina, String dodatneInfo, Integer idListe) {
+    public boolean insertItem(String imeArtikla, Integer kolicina, String dodatneInfo, Integer idListe) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", imeArtikla);
@@ -121,15 +121,15 @@ public class DBHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public boolean updateList(String imeArtikla, String kolicina, String dodatneInfo, Integer idListe) {
+    public boolean updateItem(String imeArtikla, Integer kolicina, String dodatneInfo, Integer idItem) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name", imeArtikla);
         contentValues.put("quantity", kolicina);
         contentValues.put("description", dodatneInfo);
-        contentValues.put("list_id", idListe);
+        contentValues.put("list_id", idItem);
 
-        long result = DB.update("Article", contentValues, "list_id=?", new String[]{idListe.toString()});
+        long result = DB.update("Article", contentValues, "id=?", new String[]{idItem.toString()});
 
         return result != -1;
     }
@@ -145,5 +145,20 @@ public class DBHelper extends SQLiteOpenHelper {
         long result = DB.update("User", contentValues, "id=?", new String[]{idUser.toString()});
 
         return result != -1;
+    }
+
+    public int getItemId(String imeArtikla, Integer kolicina, String dodatneInfo, Integer idListe) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT * FROM Article", null);
+        System.out.println("-------- " + imeArtikla);
+        System.out.println("-------- " + kolicina);
+        System.out.println("-------- " + dodatneInfo);
+        System.out.println("-------- " + idListe);
+        while(cursor.moveToNext())
+        {
+            if(cursor.getString(1).equals(imeArtikla) && Integer.parseInt(cursor.getString(2)) == kolicina && cursor.getString(3).equals(dodatneInfo))
+                return cursor.getInt(0);
+        }
+        return -1;
     }
 }

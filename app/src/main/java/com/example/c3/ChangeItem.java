@@ -19,8 +19,8 @@ public class ChangeItem extends AppCompatActivity {
     public Integer idOfList;
     DBHelper DB;
     String listCode;
-    String articleName;
-    int userId;
+    String articleName, opis;
+    int userId, kol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,8 @@ public class ChangeItem extends AppCompatActivity {
         String imeListe = getIntent().getStringExtra("listName");
         listCode = getIntent().getStringExtra("listCode");
         articleName = getIntent().getStringExtra("articleName");
+        kol = getIntent().getIntExtra("kolicina", 0);
+        opis = getIntent().getStringExtra("opis");
         userId = getIntent().getIntExtra("userId", 0);
 
         nazad = findViewById(R.id.nazad);
@@ -38,10 +40,18 @@ public class ChangeItem extends AppCompatActivity {
         imeArtikla = findViewById(R.id.imeArtikla);
         kolicina = findViewById(R.id.kolicina);
         dodatneInfo = findViewById(R.id.dodatneInfo);
+        System.out.println("+++++++++++++++++++++ " + kol);
 
         imeArtikla.setText(articleName);
+        kolicina.setText(String.valueOf(kol));
+        dodatneInfo.setText(opis);
+
+        System.out.println("+++++++++++++++++++++ " + imeArtikla.getText().toString());
+        System.out.println("+++++++++++++++++++++ " + Integer.parseInt(kolicina.getText().toString()));
+        System.out.println("+++++++++++++++++++++ " + dodatneInfo.getText().toString());
 
         DB = new DBHelper(this);
+        int getItemId = DB.getItemId(imeArtikla.getText().toString(), Integer.parseInt(kolicina.getText().toString()), dodatneInfo.getText().toString(), idOfList);
 
         nazad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,23 +69,26 @@ public class ChangeItem extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String ime = imeArtikla.getText().toString();
-                String kol = kolicina.getText().toString();
+                Integer kol = Integer.parseInt(kolicina.getText().toString());
                 String info = dodatneInfo.getText().toString();
 
                 System.out.println("+++++++++++++++++++++ " + idOfList);
                 System.out.println("+++++++++++++++++++++ " + ime);
                 System.out.println("+++++++++++++++++++++ " + kol);
                 System.out.println("+++++++++++++++++++++ " + info);
+                System.out.println("--------------------- " + getItemId);
 
-                Boolean checkInsertData = DB.updateList(ime, kol, info, idOfList);
+                if(getItemId != -1) {
+                    Boolean checkInsertData = DB.updateItem(ime, kol, info, getItemId);
 
-                if(checkInsertData) {
-                    Intent intent = new Intent(ChangeItem.this, SelectedList.class);
-                    intent.putExtra("listName", imeListe);
-                    intent.putExtra("idOfList", idOfList);
-                    intent.putExtra("listCode", listCode);
-                    intent.putExtra("userId", userId);
-                    startActivity(intent);
+                    if (checkInsertData) {
+                        Intent intent = new Intent(ChangeItem.this, SelectedList.class);
+                        intent.putExtra("listName", imeListe);
+                        intent.putExtra("idOfList", idOfList);
+                        intent.putExtra("listCode", listCode);
+                        intent.putExtra("userId", userId);
+                        startActivity(intent);
+                    }
                 }
             }
         });
