@@ -87,13 +87,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return -1;
     }
 
-    public boolean userExist(String username) {
+    public boolean userExist(String username, int userId) {
         SQLiteDatabase DB = this.getWritableDatabase();
         Cursor cursor = DB.rawQuery("SELECT * FROM User", null);
         while(cursor.moveToNext())
         {
-            if(cursor.getString(1).equals(username))
+            if(cursor.getString(1).equals(username) && cursor.getInt(0) != userId) {
                 return true;
+            }
         }
         return false;
     }

@@ -51,7 +51,7 @@ public class Signup extends AppCompatActivity {
                 System.out.println("-------------" + passwordConfirm_.isEmpty());
                 System.out.println("-------------" + !surname_.isEmpty());
                 if(!username_.isEmpty() && !name_.isEmpty() && !surname_.isEmpty() && !password_.isEmpty() && !passwordConfirm_.isEmpty() && password_.equals(passwordConfirm_)) {
-                    Boolean userExist = DB.userExist(username_);
+                    Boolean userExist = DB.userExist(username_, -1);
                     if (!userExist) {
                         Boolean checkInsertData = DB.insertUser(username_, name_, surname_, password_);
                         if (checkInsertData) {

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Profil extends AppCompatActivity {
 
@@ -31,6 +32,8 @@ public class Profil extends AppCompatActivity {
         ok = findViewById(R.id.ok);
         cancel = findViewById(R.id.cancel);
 
+        String pom = username.getText().toString();
+
         DB = new DBHelper(this);
 
         ok.setOnClickListener(new View.OnClickListener() {
@@ -43,13 +46,36 @@ public class Profil extends AppCompatActivity {
                 String passwordConfirm_ = passwordConfirm.getText().toString();
 
                 if(!username_.isEmpty() && !name_.isEmpty() && !surname_.isEmpty() && !password_.isEmpty() && !passwordConfirm_.isEmpty() && password_.equals(passwordConfirm_)) {
-                    Boolean checkInsertData = DB.updateUser(username_, name_, surname_, password_, userId);
-                    if(checkInsertData) {
-                        Intent intent = new Intent (Profil.this, MainActivity.class);
-                        intent.putExtra("userId", userId);
-                        startActivity(intent);
+                    Boolean userExist = DB.userExist(username_, userId);
+                    if (!userExist && !pom.equals(username_)) {
+                        Boolean checkInsertData = DB.updateUser(username_, name_, surname_, password_, userId);
+                        if (checkInsertData) {
+                            Intent intent = new Intent(Profil.this, MainActivity.class);
+                            intent.putExtra("userId", userId);
+                            startActivity(intent);
+                        }
+                    }
+                    else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Već postoji korisnik sa takvim username-om", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 }
+                else if(username_.isEmpty() || name_.isEmpty() || surname_.isEmpty() || password_.isEmpty() || passwordConfirm_.isEmpty()) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Nijedno polje za unos ne smije biti prazno", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if(!password_.equals(passwordConfirm_)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Password i potvrda passworda moraju biti isti", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+//                if(!username_.isEmpty() && !name_.isEmpty() && !surname_.isEmpty() && !password_.isEmpty() && !passwordConfirm_.isEmpty() && password_.equals(passwordConfirm_)) {
+//                    Boolean checkInsertData = DB.updateUser(username_, name_, surname_, password_, userId);
+//                    if(checkInsertData) {
+//                        Intent intent = new Intent (Profil.this, MainActivity.class);
+//                        intent.putExtra("userId", userId);
+//                        startActivity(intent);
+//                    }
+//                }
             }
         });
 
