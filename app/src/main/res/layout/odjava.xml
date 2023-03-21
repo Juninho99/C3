@@ -9,33 +9,17 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Unesite kod liste:"
-        android:textSize="30sp"
+        android:layout_width="276dp"
+        android:layout_height="82dp"
+        android:text="Da li ste sigurni da se želite odjaviti?"
         android:textColor="@color/black"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05" />
-
-    <EditText
-        android:id="@+id/codeListe"
-        android:layout_width="229dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/black"
-        android:hint="@string/kod_liste"
-        android:textColorHint="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.02" />
 
     <Button
         android:id="@+id/ok"
@@ -49,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.281"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codeListe"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.2" />
 
     <Button
@@ -64,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.699"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/codeListe"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

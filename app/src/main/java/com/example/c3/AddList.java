@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -81,16 +82,22 @@ public class AddList extends AppCompatActivity {
             public void onClick(View v) {
                 String ime = imeListe.getText().toString();
 
-                Boolean checkInsertData = DB.insertList(ime, generateRandomCode());
+                if(!ime.isEmpty()) {
+                    Boolean checkInsertData = DB.insertList(ime, generateRandomCode());
 
-                if(checkInsertData) {
-                    int listId = DB.getListId(ime);
-                    Boolean checkInsertUserList = DB.insertUserList(userId, listId);
-                    if(checkInsertUserList) {
-                        Intent intent = new Intent(AddList.this, MainActivity.class);
-                        intent.putExtra("userId", userId);
-                        startActivity(intent);
+                    if (checkInsertData) {
+                        int listId = DB.getListId(ime);
+                        Boolean checkInsertUserList = DB.insertUserList(userId, listId);
+                        if (checkInsertUserList) {
+                            Intent intent = new Intent(AddList.this, MainActivity.class);
+                            intent.putExtra("userId", userId);
+                            startActivity(intent);
+                        }
                     }
+                }
+                else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Naziv liste ne smije biti prazan", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         });

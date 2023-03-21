@@ -27,4 +27,5 @@
     <string name="prezime">Prezime</string>
     <string name="potvrdi_sifru">Potvrdi šifru</string>
     <string name="ime_artikla">Ime artikla</string>
+    <string name="kod_liste">Kod liste</string>
 </resources>

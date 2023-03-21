@@ -74,8 +74,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         odjava.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (MainActivity.this, Login.class);
-                startActivity(intent);
+                createOdjavaDialog();
             }
         });
 
@@ -169,6 +168,39 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                         dialog.dismiss();
                     }
                 }
+                else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Kod liste koji ste unijeli nije ispravan. Pokušajte ponovo.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
+    }
+
+    public void createOdjavaDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View codePopupView = getLayoutInflater().inflate(R.layout.odjava, null);
+
+        Button ok = codePopupView.findViewById(R.id.ok);
+        Button nazad = codePopupView.findViewById(R.id.nazad);
+
+        dialogBuilder.setView(codePopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        nazad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (MainActivity.this, Login.class);
+                startActivity(intent);
+                Toast toast = Toast.makeText(getApplicationContext(), "Odjava je uspješna.", Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }
