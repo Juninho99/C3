@@ -8,7 +8,7 @@
     android:layout_marginTop="5dp"
     android:layout_marginLeft="50dp"
     android:layout_marginRight="50dp"
-    android:background="@color/gray"
+    android:background="@color/white"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
@@ -16,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/textView"
