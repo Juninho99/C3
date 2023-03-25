@@ -53,6 +53,8 @@ public class Profil extends AppCompatActivity {
                             Intent intent = new Intent(Profil.this, MainActivity.class);
                             intent.putExtra("userId", userId);
                             startActivity(intent);
+                            Toast toast = Toast.makeText(getApplicationContext(), "Uspješna promjena korisničkih postavki", Toast.LENGTH_SHORT);
+                            toast.show();
                         }
                     }
                     else {
@@ -68,14 +70,6 @@ public class Profil extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), "Password i potvrda passworda moraju biti isti", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-//                if(!username_.isEmpty() && !name_.isEmpty() && !surname_.isEmpty() && !password_.isEmpty() && !passwordConfirm_.isEmpty() && password_.equals(passwordConfirm_)) {
-//                    Boolean checkInsertData = DB.updateUser(username_, name_, surname_, password_, userId);
-//                    if(checkInsertData) {
-//                        Intent intent = new Intent (Profil.this, MainActivity.class);
-//                        intent.putExtra("userId", userId);
-//                        startActivity(intent);
-//                    }
-//                }
             }
         });
 

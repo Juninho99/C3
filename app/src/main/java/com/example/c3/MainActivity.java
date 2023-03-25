@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                 editList.remove(position);
                 adapter.notifyItemRemoved(position);
 
-                Toast toast = Toast.makeText(getApplicationContext(), "Uspješan izlazak sa liste", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Uspješno brisanje liste", Toast.LENGTH_SHORT);
                 toast.show();
 
                 dialog.dismiss();
@@ -377,7 +377,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                                 displaydata();
                                 dialog.dismiss();
 
-                                Toast toast = Toast.makeText(getApplicationContext(), "Uspješno pridruživanje listi", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Uspješno kreiranje liste", Toast.LENGTH_SHORT);
                                 toast.show();
                             }
                         }

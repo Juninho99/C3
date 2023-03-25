@@ -21,7 +21,7 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
     private AlertDialog dialog;
 
     String listCode;
-    Button dodaj, prikaziKodListe, nazad;
+    Button dodaj, prikaziKodListe, nazad, help;
     RecyclerView recyclerView;
     ArrayList<String> editList, opisList;
     ArrayList<Integer> kolList, idItem;
@@ -47,6 +47,7 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
         dodaj = findViewById(R.id.dodaj);
         prikaziKodListe = findViewById(R.id.prikaziKodListe);
         nazad = findViewById(R.id.nazad);
+        help = findViewById(R.id.help);
 
         dodaj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +74,13 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
                 Intent intent = new Intent (SelectedList.this, MainActivity.class);
                 intent.putExtra("userId", userId);
                 startActivity(intent);
+            }
+        });
+
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createHelpDialog();
             }
         });
 
@@ -178,6 +186,24 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
                 Toast toast = Toast.makeText(getApplicationContext(), "Uspješno brisanje artikla", Toast.LENGTH_SHORT);
                 toast.show();
 
+                dialog.dismiss();
+            }
+        });
+    }
+
+    public void createHelpDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View codePopupView = getLayoutInflater().inflate(R.layout.help_activity_main, null);
+
+        Button ok = codePopupView.findViewById(R.id.ok);
+
+        dialogBuilder.setView(codePopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });

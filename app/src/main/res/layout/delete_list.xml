@@ -42,7 +42,7 @@
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="#3d5af1"
-        android:text="Nazad"
+        android:text="Ne"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

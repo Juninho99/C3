@@ -65,10 +65,12 @@ public class Signup extends AppCompatActivity {
                         if (checkInsertData) {
                             Intent intent = new Intent(Signup.this, Login.class);
                             startActivity(intent);
+                            Toast toast = Toast.makeText(getApplicationContext(), "Uspješna registracija", Toast.LENGTH_SHORT);
+                            toast.show();
                         }
                     }
                     else {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Već postoji korisnik sa takvim username-om", Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Već postoji korisnik sa takvim korisničkim imenom", Toast.LENGTH_SHORT);
                         toast.show();
                     }
                 }

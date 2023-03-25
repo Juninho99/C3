@@ -80,6 +80,8 @@ public class AddItem extends AppCompatActivity {
                             intent.putExtra("listCode", listCode);
                             intent.putExtra("userId", userId);
                             startActivity(intent);
+                            Toast toast = Toast.makeText(getApplicationContext(), "Uspješno dodavanje artikla u listu", Toast.LENGTH_SHORT);
+                            toast.show();
                         }
                     }
                     else {
