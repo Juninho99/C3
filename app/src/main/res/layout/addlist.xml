@@ -30,7 +30,7 @@
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="@string/ime_liste"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textCapSentences"
         android:textColor="#3d5af1"
         android:textColorHint="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"

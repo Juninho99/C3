@@ -145,9 +145,21 @@ public class DBHelper extends SQLiteOpenHelper {
         return -1;
     }
 
-    public boolean deleteList(int idList, int idUser) {
+    public boolean deleteUserList(int idList, int idUser) {
         SQLiteDatabase DB = this.getWritableDatabase();
         long result = DB.delete("UserList", "idUser=" + idUser + " AND idList=" + idList, null);
+        return result != -1;
+    }
+
+    public boolean deleteList(int idList) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        long result = DB.delete("List", "id=" + idList, null);
+        return result != -1;
+    }
+
+    public boolean deleteArticlesFromList(int idList) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        long result = DB.delete("Article", "list_id=" + idList, null);
         return result != -1;
     }
 

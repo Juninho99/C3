@@ -31,11 +31,12 @@
         android:paddingLeft="10px"
         android:paddingRight="10px"
         android:text=
-"• Pritiskom na taster 'Dodaj' otvara se prozor za dodavanje novog artikla u kojem je se mora unijeti naziv artikla, te opcionalno količina i dodatne informacije\n
-• Pritiskon na taster 'Prikaži kod liste' otvara se prozor za prikaz koda liste\n
-• Kreiranjem novog artikla stvara se odjeljak u na bijeloj plohi ovog prozora\n
-• Pritiskom na naziv artikla u odjeljku otvara se novi prozor za mogući izmjenu stavki tog artikla\n
-• Dugim pritiskom na naziv artikla u odjeljku otvara se prozor za moguće brisanje artikla"
+            "• Za kreiranje nove liste pritisnite 'KREIRAJ NOVU LISTU'\n
+• Za pridruživanje listi putem njenog koda pritisnite 'PRIDRUŽI SE LISTI'\n
+• Za promjenu korisničkih postavki pritisnite 'PROFIL'\n
+• Kreiranjem nove liste stvara se odjeljak na bijeloj plohi ovog prozora\n
+• Za pristup listi pritisnite na naziv liste u tom odjeljku\n
+• Za brisanje liste dugo pritisnite na naziv liste u tom odjeljku"
         android:textSize="20sp"
         android:textColor="#3d5af1"
         app:layout_constraintBottom_toBottomOf="parent"

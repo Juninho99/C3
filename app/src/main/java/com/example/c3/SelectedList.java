@@ -200,7 +200,7 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
 
     public void createHelpDialog(){
         dialogBuilder = new AlertDialog.Builder(this);
-        final View codePopupView = getLayoutInflater().inflate(R.layout.help_activity_main, null);
+        final View codePopupView = getLayoutInflater().inflate(R.layout.help_selected_list, null);
 
         Button ok = codePopupView.findViewById(R.id.ok);
 

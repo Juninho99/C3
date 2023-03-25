@@ -8,10 +8,10 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -280,7 +280,20 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             @Override
             public void onClick(View v) {
                 int idListe = idList.get(position);
-                Boolean deleteData = DB.deleteList(idListe, userId);
+                Boolean deleteData = DB.deleteUserList(idListe, userId);
+
+                Cursor corsorUserList = DB.getAllLists("UserList");
+                Boolean temp = false;
+                while (corsorUserList.moveToNext()) {
+                    if (corsorUserList.getInt(2) == idListe) {
+                        temp = true;
+                    }
+                }
+
+                if(!temp) {
+                    Boolean deleteList = DB.deleteList(idListe);
+                    Boolean deleteArticles = DB.deleteArticlesFromList(idListe);
+                }
 
                 editList.remove(position);
                 adapter.notifyItemRemoved(position);
@@ -348,20 +361,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                                 toast.show();
                             }
                         }
-
                         if (!temp) {
-                            Boolean checkInsertUserList = DB.insertUserList(userId, listId);
-                            if (checkInsertUserList) {
-                                editList.removeAll(editList);
-                                idList.removeAll(idList);
-                                listCode.removeAll(listCode);
-                                recyclerView.setAdapter(adapter);
-                                displaydata();
-                                dialog.dismiss();
-
-                                Toast toast = Toast.makeText(getApplicationContext(), "Uspješno pridruživanje već postojećoj listi", Toast.LENGTH_SHORT);
-                                toast.show();
-                            }
+                            Toast toast = Toast.makeText(getApplicationContext(), "Ako se želite pridružiti listi koja već postoji unesite njen kod", Toast.LENGTH_LONG);
+                            toast.show();
                         }
                     } else {
                         Boolean checkInsertData = DB.insertList(nameListe, generateRandomCode());
