@@ -197,7 +197,7 @@ public class DBHelper extends SQLiteOpenHelper {
         System.out.println("-------- " + idListe);
         while(cursor.moveToNext())
         {
-            if(cursor.getString(1).equals(imeArtikla) && Integer.parseInt(cursor.getString(2)) == kolicina && cursor.getString(3).equals(dodatneInfo))
+            if(cursor.getString(1).equals(imeArtikla) && Integer.parseInt(cursor.getString(2)) == kolicina && cursor.getString(3).equals(dodatneInfo) && cursor.getInt(4) == idListe)
                 return cursor.getInt(0);
         }
         return -1;

@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                     while(corsorUserList.moveToNext()) {
                         if(userId == corsorUserList.getInt(1) && corsorUserList.getInt(2) == listId) {
                             temp = true;
-                            Toast toast = Toast.makeText(getApplicationContext(), "Već ste pridruženi ovoj listi.", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(getApplicationContext(), "Već ste pridruženi ovoj listi", Toast.LENGTH_SHORT);
                             toast.show();
                         }
                     }
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                     }
                 }
                 else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Kod liste koji ste unijeli nije ispravan. Pokušajte ponovo.", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Kod liste koji ste unijeli nije ispravan", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }

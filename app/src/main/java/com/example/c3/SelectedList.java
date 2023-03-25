@@ -98,9 +98,14 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
 
     private void displaydata() {
         Cursor cursor = DB.getAllLists("Article");
+        System.out.println("***************************** " + idOfList);
         while(cursor.moveToNext())
         {
             if(cursor.getInt(4) == idOfList) {
+                System.out.println("////**////" + cursor.getInt(0));
+                System.out.println("////**////" + cursor.getString(1));
+                System.out.println("////**////" + cursor.getInt(2));
+                System.out.println("////**////" + cursor.getString(3));
                 idItem.add(cursor.getInt(0));
                 editList.add(cursor.getString(1));
                 kolList.add(cursor.getInt(2));
@@ -119,6 +124,8 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(SelectedList.this, ChangeItem.class);
+
+        System.out.println("/////////////// " + String.valueOf(opisList.get(position)));
 
         intent.putExtra("listName", imeListe);
         intent.putExtra("idOfList", idOfList);
