@@ -43,7 +43,7 @@
         android:layout_height="57dp"
         android:ems="10"
         android:hint="@string/sifra"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"

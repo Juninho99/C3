@@ -15,9 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewInterface{
 
+    private static final String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     public Button kreirajNovuListu;
@@ -33,6 +35,40 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     MyAdapter adapter;
 
     int userId;
+
+    public static String generateRandomCode() {
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+
+        // Generišemo prva 2 slova
+        for (int i = 0; i < 2; i++) {
+            int index = random.nextInt(LETTERS.length());
+            char c = LETTERS.charAt(index);
+            sb.append(c);
+        }
+
+        // Generišemo prvi broj
+        int number1 = random.nextInt(10);
+        sb.append(number1);
+
+        // Generišemo 1 slovo
+        int index = random.nextInt(LETTERS.length());
+        char c = LETTERS.charAt(index);
+        sb.append(c);
+
+        // Generišemo drugi broj
+        int number2 = random.nextInt(10);
+        sb.append(number2);
+
+        // Generišemo zadnja 2 slova
+        for (int i = 0; i < 2; i++) {
+            int index2 = random.nextInt(LETTERS.length());
+            char c2 = LETTERS.charAt(index2);
+            sb.append(c2);
+        }
+
+        return sb.toString();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +86,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         kreirajNovuListu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (MainActivity.this, AddList.class);
-                intent.putExtra("userId", userId);
-                startActivity(intent);
+                createAddListDialog();
             }
         });
 
@@ -178,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                             editList.removeAll(editList);
                             idList.removeAll(idList);
                             listCode.removeAll(listCode);
+                            recyclerView.setAdapter(adapter);
                             displaydata();
                             dialog.dismiss();
 
@@ -272,6 +307,86 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+            }
+        });
+    }
+
+    public void createAddListDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View codePopupView = getLayoutInflater().inflate(R.layout.addlist, null);
+
+        EditText imeListe = codePopupView.findViewById(R.id.imeListe);
+
+        Button ok = codePopupView.findViewById(R.id.ok);
+        Button nazad = codePopupView.findViewById(R.id.nazad);
+
+        dialogBuilder.setView(codePopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        nazad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nameListe = imeListe.getText().toString();
+
+                int listId = DB.checkName(nameListe);
+                if(!nameListe.isEmpty()) {
+                    if (listId != -1) {
+                        Boolean temp = false;
+                        Cursor corsorUserList = DB.getAllLists("UserList");
+                        while (corsorUserList.moveToNext()) {
+                            if (userId == corsorUserList.getInt(1) && corsorUserList.getInt(2) == listId) {
+                                temp = true;
+                                Toast toast = Toast.makeText(getApplicationContext(), "Već ste pridruženi ovoj listi.", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+
+                        if (!temp) {
+                            Boolean checkInsertUserList = DB.insertUserList(userId, listId);
+                            if (checkInsertUserList) {
+                                editList.removeAll(editList);
+                                idList.removeAll(idList);
+                                listCode.removeAll(listCode);
+                                recyclerView.setAdapter(adapter);
+                                displaydata();
+                                dialog.dismiss();
+
+                                Toast toast = Toast.makeText(getApplicationContext(), "Uspješno pridruživanje već postojećoj listi", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                    } else {
+                        Boolean checkInsertData = DB.insertList(nameListe, generateRandomCode());
+
+                        if (checkInsertData) {
+                            int listiId = DB.getListId(nameListe);
+                            Boolean checkInsertUserList = DB.insertUserList(userId, listiId);
+                            if (checkInsertUserList) {
+                                editList.removeAll(editList);
+                                idList.removeAll(idList);
+                                listCode.removeAll(listCode);
+                                recyclerView.setAdapter(adapter);
+                                displaydata();
+                                dialog.dismiss();
+
+                                Toast toast = Toast.makeText(getApplicationContext(), "Uspješno pridruživanje listi", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                    }
+                }
+                else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Naziv liste ne smije biti prazan", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
     }

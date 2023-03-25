@@ -15,7 +15,7 @@
         android:text="Da li ste sigurni da želite obrisati ovu listu?"
         android:textAlignment="center"
         android:textColor="#3d5af1"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

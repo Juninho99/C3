@@ -121,6 +121,30 @@ public class DBHelper extends SQLiteOpenHelper {
         return -1;
     }
 
+    public int checkName(String name) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT * FROM List", null);
+        while(cursor.moveToNext())
+        {
+            if(cursor.getString(1).equals(name))
+                return cursor.getInt(0);
+        }
+        return -1;
+    }
+
+    public int checkArticleName(String name, int idListe) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("SELECT * FROM Article", null);
+
+        while(cursor.moveToNext())
+        {
+            if(cursor.getString(1).equals(name) && cursor.getInt(4) == idListe) {
+                return cursor.getInt(0);
+            }
+        }
+        return -1;
+    }
+
     public boolean deleteList(int idList, int idUser) {
         SQLiteDatabase DB = this.getWritableDatabase();
         long result = DB.delete("UserList", "idUser=" + idUser + " AND idList=" + idList, null);

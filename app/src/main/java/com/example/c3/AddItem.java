@@ -58,7 +58,7 @@ public class AddItem extends AppCompatActivity {
 
                 if(!ime.isEmpty()) {
                     String info = dodatneInfo.getText().toString();
-                    Integer kol = 0;
+                    Integer kol = 1;
                     if (!kolicina.getText().toString().isEmpty())
                         kol = Integer.parseInt(kolicina.getText().toString());
 
@@ -67,15 +67,24 @@ public class AddItem extends AppCompatActivity {
                     System.out.println("+++++++++++++++++++++ " + kol);
                     System.out.println("+++++++++++++++++++++ " + info);
 
-                    Boolean checkInsertData = DB.insertItem(ime, kol, info, idOfList);
+                    int temp = DB.checkArticleName(ime, idOfList);
 
-                    if (checkInsertData) {
-                        Intent intent = new Intent(AddItem.this, SelectedList.class);
-                        intent.putExtra("listName", imeListe);
-                        intent.putExtra("idOfList", idOfList);
-                        intent.putExtra("listCode", listCode);
-                        intent.putExtra("userId", userId);
-                        startActivity(intent);
+                    if(temp == -1) {
+
+                        Boolean checkInsertData = DB.insertItem(ime, kol, info, idOfList);
+
+                        if (checkInsertData) {
+                            Intent intent = new Intent(AddItem.this, SelectedList.class);
+                            intent.putExtra("listName", imeListe);
+                            intent.putExtra("idOfList", idOfList);
+                            intent.putExtra("listCode", listCode);
+                            intent.putExtra("userId", userId);
+                            startActivity(intent);
+                        }
+                    }
+                    else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Artikal sa ovim nazivom već postoji u ovoj listi", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 }
                 else {

@@ -21,9 +21,6 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".AddList"
-            android:exported="false" />
-        <activity
             android:name=".ChangeItem"
             android:exported="false" />
         <activity
