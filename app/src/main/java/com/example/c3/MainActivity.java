@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
             public void onClick(View v) {
                 Intent intent = new Intent (MainActivity.this, Login.class);
                 startActivity(intent);
-                Toast toast = Toast.makeText(getApplicationContext(), "Odjava je uspješna.", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Odjava je uspješna", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
@@ -344,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                         while (corsorUserList.moveToNext()) {
                             if (userId == corsorUserList.getInt(1) && corsorUserList.getInt(2) == listId) {
                                 temp = true;
-                                Toast toast = Toast.makeText(getApplicationContext(), "Već ste pridruženi ovoj listi.", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Već ste pridruženi ovoj listi", Toast.LENGTH_SHORT);
                                 toast.show();
                             }
                         }

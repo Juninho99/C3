@@ -79,7 +79,7 @@ public class Signup extends AppCompatActivity {
                     toast.show();
                 }
                 else if(!password_.equals(passwordConfirm_)) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Password i potvrda passworda moraju biti isti", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Potvrda šifre i šifra moraju biti isti", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
