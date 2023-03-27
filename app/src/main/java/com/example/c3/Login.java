@@ -46,7 +46,7 @@ public class Login extends AppCompatActivity {
                     toast.show();
                 }
                 else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Pogrešno korisničko ime ili lozinka", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Pogrešno korisničko ime ili šifra", Toast.LENGTH_SHORT);
                     toast.show();
                 }
 
