@@ -187,13 +187,17 @@ public class SelectedList extends Activity implements RecyclerViewInterface{
                 int idItema = idItem.get(position);
                 Boolean deleteData = DB.deleteItem(idItema);
 
-                editList.remove(position);
+                editList.removeAll(editList);
+                kolList.removeAll(kolList);
+                opisList.removeAll(opisList);
+                idItem.removeAll(idItem);
                 adapter.notifyItemRemoved(position);
 
                 Toast toast = Toast.makeText(getApplicationContext(), "Uspješno brisanje artikla", Toast.LENGTH_SHORT);
                 toast.show();
 
                 dialog.dismiss();
+                displaydata();
             }
         });
     }

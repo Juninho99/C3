@@ -288,13 +288,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
                     Boolean deleteArticles = DB.deleteArticlesFromList(idListe);
                 }
 
-                editList.remove(position);
+                editList.removeAll(editList);
+                idList.removeAll(idList);
+                listCode.removeAll(listCode);
                 adapter.notifyItemRemoved(position);
 
                 Toast toast = Toast.makeText(getApplicationContext(), "Uspješno brisanje liste", Toast.LENGTH_SHORT);
                 toast.show();
 
                 dialog.dismiss();
+                displaydata();
             }
         });
     }
