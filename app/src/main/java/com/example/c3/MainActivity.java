@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
 
-        // Generišemo prva 2 slova
-        for (int i = 0; i < 2; i++) {
+        // Generišemo prvo slovo
+        for (int i = 0; i < 1; i++) {
             int index = random.nextInt(LETTERS.length());
             char c = LETTERS.charAt(index);
             sb.append(c);
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         int number1 = random.nextInt(10);
         sb.append(number1);
 
-        // Generišemo 1 slovo
+        // Generišemo drugo slovo
         int index = random.nextInt(LETTERS.length());
         char c = LETTERS.charAt(index);
         sb.append(c);
@@ -59,13 +59,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         // Generišemo drugi broj
         int number2 = random.nextInt(10);
         sb.append(number2);
-
-        // Generišemo zadnja 2 slova
-        for (int i = 0; i < 2; i++) {
-            int index2 = random.nextInt(LETTERS.length());
-            char c2 = LETTERS.charAt(index2);
-            sb.append(c2);
-        }
 
         return sb.toString();
     }
